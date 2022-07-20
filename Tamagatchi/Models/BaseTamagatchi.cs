@@ -33,6 +33,7 @@ namespace Tamagatchi.Models
       Weight = this.GetStat(20, 30);
 
       _types.Add(this);
+      CheckFood = this.Feed();
       Status = this.CheckAlive();
       Id = _types.Count;
     }
@@ -66,10 +67,25 @@ namespace Tamagatchi.Models
       }
     }
 
-    // public string Feed()
-    // {
-      
-    // }
+    public string Feed()
+    {
+      if (Hunger < 10 && Hunger > 0)
+        {
+          Hunger = Hunger + 1;
+          CheckFood = "You fed " + Name;
+          return CheckFood;
+        }
+        else if (Hunger == 10)
+        {
+          CheckFood = Name + " is full!";
+          return CheckFood;
+        }
+        else
+        {
+          CheckFood = Name + " is " + Status + " you can't feed a corpse.";
+          return CheckFood;
+        }
+    }
 
   }
 }
