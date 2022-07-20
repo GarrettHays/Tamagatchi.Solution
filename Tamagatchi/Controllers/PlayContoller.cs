@@ -28,25 +28,26 @@ namespace Tamagatchi.Controllers
     }
 
     [HttpGet("/play/{id}")]
-    public ActionResult Show(int id, string button)
+    public ActionResult Show(int id)
     {
       BaseTamagatchi foundMinion = BaseTamagatchi.Find(id);
-      if (button == "feed")    
-      {
-        if (foundMinion.Hunger < 10 && foundMinion.Hunger > 0)
-        {
-          foundMinion.Hunger = foundMinion.Hunger + 1;
-          foundMinion.CheckFood = "You fed " + foundMinion.Name;
-        }
-        else if (foundMinion.Hunger == 10)
-        {
-          foundMinion.CheckFood = foundMinion.Name + " is full!";
-        }
-        else
-        {
-          foundMinion.CheckFood = foundMinion.Name + " is " + foundMinion.Status + " you can't feed a corpse.";
-        }
-      }
+      // if (button == "feed")    
+      // {
+      //   if (foundMinion.Hunger < 10 && foundMinion.Hunger > 0)
+      //   {
+      //     foundMinion.Hunger = foundMinion.Hunger + 1;
+      //     foundMinion.CheckFood = "You fed " + foundMinion.Name;
+      //   }
+      //   else if (foundMinion.Hunger == 10)
+      //   {
+      //     foundMinion.CheckFood = foundMinion.Name + " is full!";
+      //   }
+      //   else
+      //   {
+      //     foundMinion.CheckFood = foundMinion.Name + " is " + foundMinion.Status + " you can't feed a corpse.";
+      //   }
+      // }
+      foundMinion.Feed();
       return View(foundMinion);
     }
                       //6
