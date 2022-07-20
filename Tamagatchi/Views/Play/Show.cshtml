@@ -47,9 +47,10 @@
     <p>Discipline: @Model.Discipline / 10</p>
     <p>Training: @Model.Training / 10</p>
     <form action="/play/@Model.Id" method="get">
-      <button type="submit" name="feed">Click to Feed @Model.Name</button>
+      <button type="submit" name="feed">Click to feed and help @Model.Name</button>
     </form>
     <p>@Model.CheckFood</p>
+    <p>@Model.CheckHappy</p>
     <a href='/play'>View all minions</a>
   </div>
 </body>
