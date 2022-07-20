@@ -15,6 +15,7 @@ namespace Tamagatchi.Models
     public int Weight { get; set; }
     public int Id { get; set; }
     public string Status { get; set; }
+    public string CheckFood { get; set; }
     private static List<BaseTamagatchi> _types = new List<BaseTamagatchi> {};
 
     public BaseTamagatchi(string name)
@@ -64,6 +65,11 @@ namespace Tamagatchi.Models
         return "Alive";
       }
     }
+
+    // public string Feed()
+    // {
+      
+    // }
 
   }
 }
