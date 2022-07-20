@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.Models;
+using Tamagatchi.Models;
 using System.Collections.Generic;
 
 namespace Tamagatchi.Controllers
@@ -9,7 +9,8 @@ namespace Tamagatchi.Controllers
     [HttpGet("/play")]
     public ActionResult Index()
     {
-      return View();
+      List<BaseTamagatchi> newTama = BaseTamagatchi.GetAll();
+      return View(newTama);
     }
 
     [HttpGet("/play/new")]
@@ -19,17 +20,17 @@ namespace Tamagatchi.Controllers
     }
 
     [HttpPost("/play")]
-    public ActionResult Index(string name, int hunger, int happy, int training, int discipline, int age, int weight)
+    public ActionResult Index(string name)
     {
-      BaseTamagatchi user = new BaseTamagachi();
-      user.Name = name;
-      user.Age = age;
-      user.Hunger = hunger;
-      user.Happy = happy;
-      user.Training = training;
-      user.Discipline = discipline;
-      user.Weight = weight;
+      BaseTamagatchi user = new BaseTamagatchi(name);
       return RedirectToAction("Index");
+    }
+
+    [HttpGet("/play/{id}")]
+    public ActionResult Show(int id)
+    {
+      BaseTamagatchi foundMinion = BaseTamagatchi.Find(id);
+      return View(foundMinion);
     }
   }
 }
