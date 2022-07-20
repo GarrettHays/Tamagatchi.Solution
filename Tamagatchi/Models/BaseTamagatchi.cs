@@ -16,6 +16,7 @@ namespace Tamagatchi.Models
     public int Id { get; set; }
     public string Status { get; set; }
     public string CheckFood { get; set; }
+    public string CheckHappy { get; set; }
     private static List<BaseTamagatchi> _types = new List<BaseTamagatchi> {};
 
     public BaseTamagatchi(string name)
@@ -33,8 +34,9 @@ namespace Tamagatchi.Models
       Weight = this.GetStat(20, 30);
 
       _types.Add(this);
-      CheckFood = this.Feed();
       Status = this.CheckAlive();
+      CheckFood = this.Feed();
+      CheckHappy = this.MakeHappy();
       Id = _types.Count;
     }
 
@@ -84,6 +86,26 @@ namespace Tamagatchi.Models
         {
           CheckFood = Name + " is " + Status + " you can't feed a corpse.";
           return CheckFood;
+        }
+    }
+
+    public string MakeHappy()
+    {
+        if (Happy < 10 && Happy > 0)
+        {
+          Happy = Happy + 1;
+          CheckHappy = "You fed " + Name;
+          return CheckHappy;
+        }
+        else if (Happy == 10)
+        {
+          CheckHappy = Name + " is full!";
+          return CheckHappy;
+        }
+        else
+        {
+          CheckHappy = Name + " is " + Status + " you can't feed a corpse.";
+          return CheckHappy;
         }
     }
 
