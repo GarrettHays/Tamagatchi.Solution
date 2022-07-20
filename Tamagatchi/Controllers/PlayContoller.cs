@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Tamagatchi.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Tamagatchi.Controllers
 {
@@ -27,38 +29,21 @@ namespace Tamagatchi.Controllers
       return RedirectToAction("Index");
     }
 
-    [HttpGet("/play/{id}")]
+    [HttpPost("/play/{id}/update")]        //6
     public ActionResult Show(int id)
-    {
+    { 
       BaseTamagatchi foundMinion = BaseTamagatchi.Find(id);
-      // if (button == "feed")    
-      // {
-      //   if (foundMinion.Hunger < 10 && foundMinion.Hunger > 0)
-      //   {
-      //     foundMinion.Hunger = foundMinion.Hunger + 1;
-      //     foundMinion.CheckFood = "You fed " + foundMinion.Name;
-      //   }
-      //   else if (foundMinion.Hunger == 10)
-      //   {
-      //     foundMinion.CheckFood = foundMinion.Name + " is full!";
-      //   }
-      //   else
-      //   {
-      //     foundMinion.CheckFood = foundMinion.Name + " is " + foundMinion.Status + " you can't feed a corpse.";
-      //   }
-      // }
       foundMinion.Feed();
       foundMinion.MakeHappy();
+      foundMinion.GetAge();
       return View(foundMinion);
     }
-                      //6
-    // [HttpPost("/play/{id}")]        //6
-    // public ActionResult FeedTest()
-    // { 
 
-    //   //else if (button == "fappy")
-    //   return RedirectToAction("Show");
-    // }
-
+    [HttpGet("/play/{id}")]
+    public ActionResult Show(int id, string button)
+    {
+      BaseTamagatchi foundMinion = BaseTamagatchi.Find(id);
+      return View(foundMinion);
+    }
   }
 }
