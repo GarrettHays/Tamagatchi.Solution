@@ -4,12 +4,42 @@
   <meta charset="utf-8">
   <title>Create your Minion!</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <style>
+    body 
+    {
+      background-color: lavender;
+    }
+
+    .container
+    {
+      text-align: center;
+    }
+    
+    ul
+    {
+      display: table;
+      margin: 0 auto;
+    }
+
+    p
+    {
+      margin: 2px;
+    }
+
+    button
+    {
+      margin: 5px;
+    }
+
+  </style>
 </head>
 <body>
-  <form action="/play" method="post">
-    <h1>Enter a name!</h1>
-    <input id="name" name="name" type="text">
-    <button type="submit">Button</button>
-  </form>
+  <div class="container">
+    <form action="/play" method="post">
+      <h1>Enter a name!</h1>
+      <input id="name" name="name" type="text">
+      <button type="submit">Button</button>
+    </form>
+  </div>
 </body>
 </html>
