@@ -10,7 +10,7 @@
 
   <h1>Your Minion:</h1>
   <h2>@Model.Name</h2>
-  <img src="https://raw.githubusercontent.com/GarrettHays/images/main/img/minion4.gif" alt="@Model.Name the Minion">
+  <img src="https://raw.githubusercontent.com/GarrettHays/images/33189111ecb1ed3f9075f54c4cd204b651fc2b45/img/minion_inside.gif" alt="@Model.Name the Minion" style="width:200px;height:auto;">
   <h4>Current Status: @Model.Status</h4>
   <ul>
     <li>AGE: @Model.Age</li>
@@ -21,7 +21,11 @@
     <li>Discipline: @Model.Discipline / 10</li>
     <li>Training: @Model.Training / 10</li>
   </ul>
-  <a href='/play'>View all items</a>
+  <form action="/play/@Model.Id" method="get">
+    <button type="submit" name="feed">Click to Feed @Model.Name</button>
+  </form>
+  <p>@Model.CheckFood</p>
+  <a href='/play'>View all minions</a>
 </body>
 </html>
 
