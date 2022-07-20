@@ -48,6 +48,7 @@ namespace Tamagatchi.Controllers
       //   }
       // }
       foundMinion.Feed();
+      foundMinion.MakeHappy();
       return View(foundMinion);
     }
                       //6
