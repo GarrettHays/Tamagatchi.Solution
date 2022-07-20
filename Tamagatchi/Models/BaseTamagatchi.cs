@@ -14,6 +14,7 @@ namespace Tamagatchi.Models
     public int Height { get; set; }
     public int Weight { get; set; }
     public int Id { get; set; }
+    public string Status { get; set; }
     private static List<BaseTamagatchi> _types = new List<BaseTamagatchi> {};
 
     public BaseTamagatchi(string name)
@@ -31,6 +32,7 @@ namespace Tamagatchi.Models
       Weight = this.GetStat(20, 30);
 
       _types.Add(this);
+      Status = this.CheckAlive();
       Id = _types.Count;
     }
 
@@ -51,6 +53,17 @@ namespace Tamagatchi.Models
       return _types[searchId - 1];
     }
 
+    public string CheckAlive()
+    { //true == alive && false == dead;
+      if (Hunger + Happy == 0)
+      {
+        return "Dead";
+      }
+      else
+      {
+        return "Alive";
+      }
+    }
 
   }
 }
