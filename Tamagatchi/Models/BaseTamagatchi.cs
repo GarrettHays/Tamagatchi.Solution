@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Tamagatchi.Models
 {
@@ -17,6 +19,8 @@ namespace Tamagatchi.Models
     public string Status { get; set; }
     public string CheckFood { get; set; }
     public string CheckHappy { get; set; }
+    public int StartTime { get; set; }
+    public int CurrentTime { get; set; }
     private static List<BaseTamagatchi> _types = new List<BaseTamagatchi> {};
 
     public BaseTamagatchi(string name)
@@ -33,11 +37,15 @@ namespace Tamagatchi.Models
       //random 20-30 for weight
       Weight = this.GetStat(20, 30);
 
-      _types.Add(this);
       Status = this.CheckAlive();
       CheckFood = this.Feed();
       CheckHappy = this.MakeHappy();
+      _types.Add(this);
       Id = _types.Count;
+
+      DateTime start = DateTime.Now;
+      
+      StartTime = (start.Hour * 100) + start.Minute;
     }
 
     public static List<BaseTamagatchi> GetAll()
@@ -94,19 +102,36 @@ namespace Tamagatchi.Models
         if (Happy < 10 && Happy > 0)
         {
           Happy = Happy + 1;
-          CheckHappy = "You fed " + Name;
+          CheckHappy = "You played with " + Name;
           return CheckHappy;
         }
         else if (Happy == 10)
         {
-          CheckHappy = Name + " is full!";
+          CheckHappy = Name + " is happy!";
           return CheckHappy;
         }
         else
         {
-          CheckHappy = Name + " is " + Status + " you can't feed a corpse.";
+          CheckHappy = Name + " is " + Status + "! Please don't touch a dead body.";
           return CheckHappy;
         }
+    }
+
+    public int GetTime()
+    {
+      DateTime start = DateTime.Now;
+      int current = (start.Hour * 100) + start.Minute;
+      return current;
+    }
+
+    public int GetAge()
+    {
+        CurrentTime = this.GetTime();
+
+          //  57  = 1604    - 1547;
+        int _age = CurrentTime - StartTime;
+        Age = _age;
+        return Age;
     }
 
   }
