@@ -46,8 +46,8 @@
     <p>Happiness: @Model.Happy / 10</p>
     <p>Discipline: @Model.Discipline / 10</p>
     <p>Training: @Model.Training / 10</p>
-    <form action="/play/@Model.Id" method="get">
-      <button type="submit" name="feed">Click to feed and help @Model.Name</button>
+    <form action="/play/@Model.Id/update" method="post">
+      <button type="submit" name="feed">Click to feed and play with @Model.Name</button>
     </form>
     <p>@Model.CheckFood</p>
     <p>@Model.CheckHappy</p>
