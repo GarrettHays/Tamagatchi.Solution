@@ -4,28 +4,54 @@
   <meta charset="utf-8">
   <title>Minion Roll Count!</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <style>
+    body 
+    {
+      background-color: lavender;
+    }
+
+    .container
+    {
+      text-align: center;
+    }
+    
+    ul
+    {
+      display: table;
+      margin: 0 auto;
+    }
+
+    p
+    {
+      margin: 2px;
+    }
+
+    button
+    {
+      margin: 5px;
+    }
+
+  </style>
 </head>
 <body>
 @using Tamagatchi.Models;
-
-  <h1>Your Minion:</h1>
-  <h2>@Model.Name</h2>
-  <img src="https://raw.githubusercontent.com/GarrettHays/images/33189111ecb1ed3f9075f54c4cd204b651fc2b45/img/minion_inside.gif" alt="@Model.Name the Minion" style="width:200px;height:auto;">
-  <h4>Current Status: @Model.Status</h4>
-  <ul>
-    <li>AGE: @Model.Age</li>
-    <li>HEIGHT: @Model.Height</li>
-    <li>WEIGHT: @Model.Weight</li>
-    <li>Hunger: @Model.Hunger / 10</li>
-    <li>Happiness: @Model.Happy / 10</li>
-    <li>Discipline: @Model.Discipline / 10</li>
-    <li>Training: @Model.Training / 10</li>
-  </ul>
-  <form action="/play/@Model.Id" method="get">
-    <button type="submit" name="feed">Click to Feed @Model.Name</button>
-  </form>
-  <p>@Model.CheckFood</p>
-  <a href='/play'>View all minions</a>
+  <div class="container">
+    <h1>Your Minion: @Model.Name</h1>
+    <center><img src="https://raw.githubusercontent.com/GarrettHays/images/33189111ecb1ed3f9075f54c4cd204b651fc2b45/img/minion_inside.gif" alt="@Model.Name the Minion" style="width:200px;height:auto;"></center>
+    <h4>Current Status: @Model.Status</h4>
+    <p>AGE: @Model.Age</p>
+    <p>HEIGHT: @Model.Height</p>
+    <p>WEIGHT: @Model.Weight</p>
+    <p>Hunger: @Model.Hunger / 10</p>
+    <p>Happiness: @Model.Happy / 10</p>
+    <p>Discipline: @Model.Discipline / 10</p>
+    <p>Training: @Model.Training / 10</p>
+    <form action="/play/@Model.Id" method="get">
+      <button type="submit" name="feed">Click to Feed @Model.Name</button>
+    </form>
+    <p>@Model.CheckFood</p>
+    <a href='/play'>View all minions</a>
+  </div>
 </body>
 </html>
 
