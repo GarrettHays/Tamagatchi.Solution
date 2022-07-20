@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Minion Roll Count!</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+@using Tamagatchi.Models;
+
+  <h1>Your Minion:</h1>
+  <h2>@Model.Name</h2>
+  <img src="https://raw.githubusercontent.com/GarrettHays/images/main/img/minion4.gif" alt="@Model.Name the Minion">
+  <ul>
+    <li>AGE: @Model.Age</li>
+    <li>HEIGHT: @Model.Height</li>
+    <li>WEIGHT: @Model.Weight</li>
+    <li>Hunger: @Model.Hunger / 10</li>
+    <li>Happiness: @Model.Happy / 10</li>
+    <li>Discipline: @Model.Discipline / 10</li>
+    <li>Training: @Model.Training / 10</li>
+  </ul>
+  <a href='/play'>View all items</a>
+</body>
+</html>
+
+
+
