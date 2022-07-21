@@ -140,7 +140,7 @@ namespace Tamagatchi.Models
     public void Timer()
     {
       System.Timers.Timer newTimer = new System.Timers.Timer();
-      newTimer.Interval = 20000;
+      newTimer.Interval = 60000;
       newTimer.Elapsed += new ElapsedEventHandler(Kill);
       newTimer.AutoReset = true;
       newTimer.Enabled = true;
