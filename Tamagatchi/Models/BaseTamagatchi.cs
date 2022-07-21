@@ -1,4 +1,5 @@
 using System;
+using System.Timers;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -79,6 +80,7 @@ namespace Tamagatchi.Models
 
     public string Feed()
     {
+      Status = this.CheckAlive();
       if (Hunger < 10 && Hunger > 0)
         {
           Hunger = Hunger + 1;
@@ -99,22 +101,23 @@ namespace Tamagatchi.Models
 
     public string MakeHappy()
     {
-        if (Happy < 10 && Happy > 0)
-        {
-          Happy = Happy + 1;
-          CheckHappy = "You played with " + Name;
-          return CheckHappy;
-        }
-        else if (Happy == 10)
-        {
-          CheckHappy = Name + " is happy!";
-          return CheckHappy;
-        }
-        else
-        {
-          CheckHappy = Name + " is " + Status + "! Please don't touch a dead body.";
-          return CheckHappy;
-        }
+      Status = this.CheckAlive();
+      if (Happy < 10 && Happy > 0)
+      {
+        Happy = Happy + 1;
+        CheckHappy = "You played with " + Name;
+        return CheckHappy;
+      }
+      else if (Happy == 10)
+      {
+        CheckHappy = Name + " is happy!";
+        return CheckHappy;
+      }
+      else
+      {
+        CheckHappy = Name + " is " + Status + "! Please don't touch a dead body.";
+        return CheckHappy;
+      }
     }
 
     public int GetTime()
@@ -132,6 +135,29 @@ namespace Tamagatchi.Models
         int _age = CurrentTime - StartTime;
         Age = _age;
         return Age;
+    }
+
+    public void Timer()
+    {
+      System.Timers.Timer newTimer = new System.Timers.Timer();
+      newTimer.Interval = 20000;
+      newTimer.Elapsed += new ElapsedEventHandler(Kill);
+      newTimer.AutoReset = true;
+      newTimer.Enabled = true;
+    }
+
+    private void Kill(object source, ElapsedEventArgs e)
+    {
+      if( Hunger > 0 && Happy > 0)
+      {
+        Hunger = Hunger - 1;
+        Happy = Happy - 1;
+      }
+      else
+      {
+        Hunger = 0;
+        Happy = 0;
+      }
     }
 
   }
