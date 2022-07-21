@@ -1,8 +1,8 @@
-# {C# Application Name}
+# Minion Tamagotchi
 
 #### By _**Alex Shevlin Matt Herbert Garrett Hays**_  
 
-#### _{Brief description of application}_  
+#### _Web app that allows the user to generate a minion tamagotchi._  
 
 ---
 
@@ -27,7 +27,7 @@
 ---
 ## Description
 
-_{This is a detailed description of your application. Give as much detail as needed to explain what the application does as well as any other information you want users or other developers to have.}_
+_A web app that lets the user input a name to receive a randomly generated minion. Users have access to a play/feed button to increase the minion's current Hunger and Happy levels. If the minion is not fed regularly both of those numbers will decrease until they hit 0. If both Hunger and Happy hit 0 you will no longer be able to feed it and it will display a status as dead._
 
 ---
 ## Setup/Installation Requirements
@@ -64,8 +64,7 @@ This program was built using *`Microsoft .NET SDK 6.0.6`*, and may not be compat
 ---
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
+* _The page will not update every time the Happy and Hunger levels are decreased and require a manual reload to display._
 
 ## License
 
