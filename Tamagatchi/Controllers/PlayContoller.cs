@@ -43,7 +43,9 @@ namespace Tamagatchi.Controllers
     public ActionResult Show(int id, string button)
     {
       BaseTamagatchi foundMinion = BaseTamagatchi.Find(id);
+      foundMinion.Timer();
       return View(foundMinion);
     }
+
   }
 }
