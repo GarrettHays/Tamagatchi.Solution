@@ -12,8 +12,7 @@ namespace Tamagatchi.Controllers
     [HttpGet("/play")]
     public ActionResult Index()
     {
-      List<BaseTamagatchi> newTama = BaseTamagatchi.GetAll();
-      return View(newTama);
+      return View();
     }
 
     [HttpGet("/play/new")]
@@ -26,6 +25,7 @@ namespace Tamagatchi.Controllers
     public ActionResult Index(string name)
     {
       BaseTamagatchi user = new BaseTamagatchi(name);
+      user.Save();
       return RedirectToAction("Index");
     }
 

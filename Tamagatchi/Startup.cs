@@ -39,4 +39,8 @@ namespace Tamagatchi
       });
     }
   }
+  public static class DBConfiguration
+  {
+    public static string ConnectionString = "host=localhost;user id=root;port=5000;database=tamagatchi;";
+  }
 }

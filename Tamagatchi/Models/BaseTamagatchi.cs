@@ -3,6 +3,7 @@ using System.Timers;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using MySql.Data.MySqlClient;
 
 namespace Tamagatchi.Models
 {
@@ -22,7 +23,6 @@ namespace Tamagatchi.Models
     public string CheckHappy { get; set; }
     public int StartTime { get; set; }
     public int CurrentTime { get; set; }
-    private static List<BaseTamagatchi> _types = new List<BaseTamagatchi> {};
 
     public BaseTamagatchi(string name)
     {
@@ -41,17 +41,100 @@ namespace Tamagatchi.Models
       Status = this.CheckAlive();
       CheckFood = this.Feed();
       CheckHappy = this.MakeHappy();
-      _types.Add(this);
-      Id = _types.Count;
+      // Id = _types.Count;
 
       DateTime start = DateTime.Now;
       
       StartTime = (start.Hour * 100) + start.Minute;
     }
 
+    public BaseTamagatchi(string name, int id)
+    {
+      Name = name;
+      //random 1=10 for Hunger, Happy, Training, and Discipline
+      Hunger = this.GetStat(1, 10);
+      Happy = this.GetStat(1, 10);
+      Training = this.GetStat(1, 10);
+      Discipline = this.GetStat(1, 10);
+      Age = 0; //connect to local machine time
+      //random 25-40 for height
+      Height = this.GetStat(25, 40);
+      //random 20-30 for weight
+      Weight = this.GetStat(20, 30);
+
+      Status = this.CheckAlive();
+      CheckFood = this.Feed();
+      CheckHappy = this.MakeHappy();
+      Id = id;
+
+      DateTime start = DateTime.Now;
+      
+      StartTime = (start.Hour * 100) + start.Minute;
+    }
+
+    public override bool Equals(System.Object otherTama)
+      {
+        if (!(otherTama is BaseTamagatchi))
+        {
+          return false;
+        }
+        else
+        {
+          BaseTamagatchi newTama = (BaseTamagatchi) otherTama;
+          bool idEquality = (this.Id == newTama.Id);
+          bool nameEquality = (this.Name == newTama.Name);
+          return (nameEquality && idEquality);
+        }
+      }
+
+
     public static List<BaseTamagatchi> GetAll()
     {
-        return _types;
+      List<BaseTamagatchi> allMinions = new List<BaseTamagatchi> { };
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = "SELECT * FROM minion;";
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while (rdr.Read())
+      {
+          int minionId = rdr.GetInt32(0);
+          string minionName = rdr.GetString(1);
+          
+          BaseTamagatchi newTama = new BaseTamagatchi(minionName, minionId);
+          // string minionHunger = newTama.Hunger;
+          //int minionHunger = rdr.GetInt32(2);
+          allMinions.Add(newTama);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+          conn.Dispose();
+      }
+      return allMinions;
+    }
+
+    public void Save()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+
+      cmd.CommandText = "INSERT INTO minion (minionName) VALUES (@BaseTamagatchi.Name);";
+      MySqlParameter param = new MySqlParameter();
+      param.ParameterName = "@BaseTamagatchi.Name";
+      param.Value = this.Name;
+      cmd.Parameters.Add(param);    
+      cmd.ExecuteNonQuery();
+      Id = (int) cmd.LastInsertedId;
+
+      // End new code
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
     }
 
     public int GetStat(int min, int max)
@@ -63,7 +146,8 @@ namespace Tamagatchi.Models
 
     public static BaseTamagatchi Find(int searchId)
     {
-      return _types[searchId - 1];
+      BaseTamagatchi placeholder = new BaseTamagatchi("minion");
+      return placeholder;
     }
 
     public string CheckAlive()
@@ -159,6 +243,21 @@ namespace Tamagatchi.Models
         Happy = 0;
       }
     }
+
+    public static void ClearAll()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = "DELETE FROM minion;";
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+    
 
   }
 }
